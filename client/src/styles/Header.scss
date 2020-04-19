@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  background: #001f3f;
+  /*height: 50px;
+  align-items: center;*/
+  &__logo {
+  margin: 20px 30px;
+  }
+  &__signIn {
+    margin: 20px 30px;
+
+    &__link {
+      color: snow;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+  &__groups {
+    margin: 20px 30px;
+
+    &__link {
+      color: snow;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}
+.selected {
+  color: #FFDC00;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+}
