@@ -1,5 +1,7 @@
 const express = require('express');
 
+
+
 const app = express();
 
 app.get('/', (req, res) => {
@@ -9,3 +11,5 @@ app.get('/', (req, res) => {
 app.listen(5000, (err) => {
     err ? console.log(err) : console.log('SERVER WAS STARTED')
 })
+
+console.log('Hello')
