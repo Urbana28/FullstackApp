@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Groups from "./Components/Groups";
-import SignIn from "./Components/SignIn";
+import SignInForm from "./Components/SignInForm";
 
 
 
@@ -9,7 +9,7 @@ const useRoute = () => {
     return(
         <Switch>
             <Route component={Groups} path='/groups'/>
-            <Route component={SignIn} path='/signIn'/>
+            <Route component={SignInForm} path='/signIn'/>
         </Switch>
     )
 }
