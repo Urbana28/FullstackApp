@@ -1,5 +1,5 @@
 {
   "port": 5000,
   "jwtSecret": "hanna don't have a dog",
-  "mongoUri": "mongodb+srv://Urbana:Carrefour1996@cluster0-cll45.azure.mongodb.net/test?retryWrites=true&w=majority"
+  "mongoUri": "mongodb+srv://Hanna28:Carrefour1996@cluster0-przw6.gcp.mongodb.net/test?retryWrites=true&w=majority"
 }

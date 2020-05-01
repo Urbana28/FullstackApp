@@ -1,12 +1,12 @@
 import React from 'react';
 import '../styles/Header.scss'
 import {NavLink} from "react-router-dom";
-
+import logotype from '../img/healthcare-and-medical.svg'
 
 const Header = () => {
     return (
         <div className='container'>
-            <div className='container__logo'>Logo</div>
+            <div className='container__logo'><img src={logotype} alt=""/></div>
             <div className='container__groups'>
                 <NavLink className='container__groups__link' activeClassName='selected' to='/groups'>
                     Groups

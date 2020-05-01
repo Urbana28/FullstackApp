@@ -2,18 +2,25 @@ import React, {useState} from 'react';
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import '../styles/SignInForm.scss'
+import '../../styles/SignInForm.scss'
 import {InputAdornment, IconButton, FormHelperText} from "@material-ui/core";
 import HelpIcon from '@material-ui/icons/Help';
+import {useDispatch, useSelector} from "react-redux";
+import {setSignedUser} from "../../store/signInReducer";
+import {IUserData} from "../../types/SignInTypes";
+import {AppStateType} from "../../store/store";
+
 
 const SignInForm = () => {
-
+    const dispatch = useDispatch();
+    const isLoading = useSelector((state:AppStateType) => state.signInPage.isLoading)
    const [isPasswordTip, setPasswordTip] = useState(false)
-    const { handleSubmit, register, errors } = useForm();
-    const onSubmit = (values:any) => {
-        console.log(values);
+    const { handleSubmit, register, errors } = useForm<IUserData>();
+    const onSubmit = (formData:IUserData) => {
+        dispatch(setSignedUser(formData))
     };
     return(
+
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
             <div className= 'form__input'>
                 <TextField
@@ -28,7 +35,7 @@ const SignInForm = () => {
                     }
                 })}
                     type="text"
-                    error={errors.email}/>
+                    error={!!errors.email}/>
                 <FormHelperText error>{errors?.email?.message}</FormHelperText>
             </div>
 
@@ -40,7 +47,7 @@ const SignInForm = () => {
                         message: 'invalid phone number'
                     }
                 })}
-                       error={errors.phoneNumber}
+                       error={!!errors.phoneNumber}
                            type="text"/>
                 <FormHelperText error>{errors?.phoneNumber?.message}</FormHelperText>
             </div>
@@ -62,13 +69,13 @@ const SignInForm = () => {
                     inputRef={register({
                     required: 'Field is required',
                     pattern: {
-                        value: /(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{6,}/g,
+                        value: /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}/g,
                         message: 'invalid password'
                     }
                 })}
-                    error={errors.password}
+                    error={!!errors.password}
                            type="text"/>
-                {isPasswordTip && <FormHelperText>Пароль должен содержать хотя бы 1 латинскую заглавную и 1 латинскую строчную буквы, 1 число, 1 спецсимвол.
+                {isPasswordTip && <FormHelperText>Пароль должен содержать хотя бы 1 латинскую заглавную и 1 латинскую строчную буквы, 1 число.
                     Минимальная длина пароля 6 символов</FormHelperText>}
                 <FormHelperText error>{errors?.password?.message}</FormHelperText>
             </div>

@@ -2,10 +2,13 @@
   display: flex;
   justify-content: space-between;
   background: #001f3f;
-  /*height: 50px;
-  align-items: center;*/
+  /*height: 50px;*/
+  align-items: center;
   &__logo {
   margin: 20px 30px;
+    img {
+      max-width: 60px;
+    }
   }
   &__signIn {
     margin: 20px 30px;

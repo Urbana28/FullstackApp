@@ -11,11 +11,11 @@ module.exports = router
 router.post('/register',
     [   //валидация при помощи экспресс-валидатора
         check('email', 'Incorrect email').isEmail(),
-        check('password', 'Minimal password length is 6').isLength({min: 6}),
-        check('phoneNumber', 'Incorrect phone number').isInt()
+        check('password', 'Minimal password length is 6').isLength({min: 6})
     ],
     async (req, res) => {
     try {
+        console.log('Body', req.body)
         const errors = validationResult(req)
         if(!errors.isEmpty()) {
             return res.status(400).json({
@@ -77,6 +77,7 @@ router.post('/login',
             config.get('jwtSecret'),
             {expiresIn: '1h'}  //желательно на 1 час
         )
+        res.json({token,userId:user.id})
 
     } catch (e) {
         res.status(500).json({message: 'Something has went wrong, try again!'})
