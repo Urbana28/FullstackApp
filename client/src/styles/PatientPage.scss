@@ -1,0 +1,42 @@
+.patient-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+
+  &__patient {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    &__photo {
+      img {
+        width: 200px;
+      }
+      margin-bottom: 10px;
+    }
+    &__info {
+      display: flex;
+      flex-direction: column;
+      &__field {
+        margin-bottom: 10px;
+      }
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+
+    &__title {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      &__t {
+        font-family: Roboto, sans-serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: #3f51b5;
+      }
+    }
+
+  }
+}

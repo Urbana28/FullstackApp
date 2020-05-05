@@ -11,6 +11,7 @@ app.get('/', (req, res) => {
 app.use(express.json({extended:true}));
 
 app.use('/api/auth', require('./routes/auth.route'))
+app.use('/api/client', require('./routes/patient.route'))
 
 
 const PORT = config.get('port') || 5000
