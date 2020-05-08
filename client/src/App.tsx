@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import Header from './Components/Header';
-import useRoute from './useRoute'
+import useRoute from './Components/Common/useRoute'
 
 function App() {
     const route = useRoute();

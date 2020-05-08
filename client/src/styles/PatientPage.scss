@@ -40,3 +40,24 @@
 
   }
 }
+//форма
+.form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 150px;
+  align-items: center;
+
+
+  &__input {
+    margin-bottom: 12px;
+    max-width: 222px;
+  }
+
+  &__invalidInput {
+    margin-bottom: 12px;
+  }
+
+  &__button {
+    width: 100px;
+  }
+}

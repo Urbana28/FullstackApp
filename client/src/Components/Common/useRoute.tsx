@@ -1,10 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Groups from "./Components/Groups";
-import SignInForm from "./Components/Auth/SignInForm";
-import LoginContainer from "./Components/Auth/LoginContainer";
-import PatientPage from './Components/patient/PatientPage';
-import TimetablePage from "./Components/TimetablePage";
+import Groups from "../Groups";
+import SignInForm from "../Auth/SignInForm";
+import LoginContainer from "../Auth/LoginContainer";
+import PatientPage from '../patient/PatientPage';
+import TimetablePage from "../TimetablePage";
+import NewPatientForm from "../patient/NewPatientForm";
+
 
 
 
@@ -16,6 +18,7 @@ const useRoute = () => {
             <Route component={LoginContainer} path='/login'/>
             <Route component={PatientPage} path='/patientPage/:patientId?'/>
             <Route component={TimetablePage} path='/login'/>
+            <Route component={NewPatientForm} path='/patientForm'/>
         </Switch>
     )
 }
