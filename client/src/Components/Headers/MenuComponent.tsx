@@ -28,7 +28,7 @@ const MenuComponent = () => {
     const dispatch = useDispatch();
     const logout = useCallback(() => {
         dispatch(logoutUser())
-    }, [])
+    }, [dispatch])
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -55,7 +55,7 @@ const MenuComponent = () => {
     // return focus to the button when we transitioned from !open -> open
     const prevOpen = React.useRef(open);
     React.useEffect(() => {
-        if (prevOpen.current === true && open === false) {
+        if (prevOpen.current && !open) {
             anchorRef.current!.focus();
         }
 

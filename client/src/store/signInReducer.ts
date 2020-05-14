@@ -2,8 +2,7 @@ import {IdType, ILoginUserData, IUserData} from "../types/SignInTypes";
 import {Dispatch} from "redux";
 import {AppStateType} from "./store";
 import {authAPI} from "../api/signIn";
-import {act} from "react-dom/test-utils";
-import {useAuth} from "../hooks/useAuth";
+
 
 
 const initialState = {
@@ -51,7 +50,7 @@ export const signInActions = {
 type AC<T> = T extends { [key: string]: (...args: any[]) => infer U } ? U : never;
 
 export const setSignedUser = (data: IUserData) => {
-    return async (dispatch: Dispatch<commonActionsSignInPage>, getState: () => AppStateType) => {
+    return async (dispatch: Dispatch<commonActionsSignInPage>) => {
         try {
             let res = await authAPI.signInUser(data)
             dispatch(signInActions.setSignedUser(res))
@@ -62,7 +61,7 @@ export const setSignedUser = (data: IUserData) => {
 }
 
 export const loginUser = (data: ILoginUserData) => {
-    return async (dispatch: Dispatch<commonActionsSignInPage>, getState: () => AppStateType) => {
+    return async (dispatch: Dispatch<commonActionsSignInPage>) => {
         try {
             let res = await authAPI.loginUser(data)
             dispatch(signInActions.setAuthUser(true));
@@ -86,7 +85,7 @@ export const setAuthUser = () => {
 
 
 export const logoutUser = () => {
-    return async (dispatch: Dispatch<commonActionsSignInPage>, getState: () => AppStateType) => {
+    return async (dispatch: Dispatch<commonActionsSignInPage>) => {
         try {
             await authAPI.removeToken()
             dispatch(signInActions.setAuthUser(false));

@@ -8,7 +8,7 @@ const LoginContainer = () => {
     const dispatch = useDispatch();
     const login = useCallback((loginData: ILoginUserData) => {
         dispatch(loginUser(loginData))
-    }, [])
+    }, [dispatch])
 
 
     return (

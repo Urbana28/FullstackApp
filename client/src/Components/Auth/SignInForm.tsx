@@ -5,15 +5,13 @@ import Button from '@material-ui/core/Button';
 import '../../styles/SignInForm.scss'
 import {InputAdornment, IconButton, FormHelperText} from "@material-ui/core";
 import HelpIcon from '@material-ui/icons/Help';
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setSignedUser} from "../../store/signInReducer";
 import {IUserData} from "../../types/SignInTypes";
-import {AppStateType} from "../../store/store";
 
 
 const SignInForm = () => {
     const dispatch = useDispatch();
-    const isLoading = useSelector((state:AppStateType) => state.signInPage.isLoading)
    const [isPasswordTip, setPasswordTip] = useState(false)
     const { handleSubmit, register, errors } = useForm<IUserData>();
     const onSubmit = (formData:IUserData) => {

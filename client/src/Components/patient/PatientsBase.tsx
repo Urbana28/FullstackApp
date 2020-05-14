@@ -3,7 +3,6 @@ import MaterialTable, {Column} from 'material-table';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
 import {getPatients} from "../../store/patientReducer";
-import {IPatient} from "../../types/patientTypes";
 
 
 interface Row {
@@ -25,7 +24,7 @@ const PatientsBase = () => {
     const dispatch = useDispatch()
     useEffect (() => {
         dispatch(getPatients())
-    }, [])
+    }, [dispatch])
 
 
     const [state, setState] = React.useState<TableState>({
