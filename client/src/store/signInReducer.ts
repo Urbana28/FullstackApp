@@ -2,13 +2,16 @@ import {IdType, ILoginUserData, IUserData} from "../types/SignInTypes";
 import {Dispatch} from "redux";
 import {AppStateType} from "./store";
 import {authAPI} from "../api/signIn";
+import {act} from "react-dom/test-utils";
+import {useAuth} from "../hooks/useAuth";
 
 
 const initialState = {
     userData: null as IUserData | null,
     isLoading: false,
     userId: null as IdType | null,
-    token: null
+    token: null,
+    isAuth: false
 }
 
 type InitialStateType = typeof initialState
@@ -26,13 +29,11 @@ export const signInReducer = (state = initialState,
                 ...state,
                 isLoading: action.isLoading
             };
-        case "LOGIN_USER":
+        case "SET_AUTH_USER":
             return {
                 ...state,
-                userId: action.id,
-                token: action.token
+                isAuth: action.isAuth
             }
-
         default:
             return state
     }
@@ -43,7 +44,7 @@ type commonActionsSignInPage = AC<typeof signInActions>
 
 export const signInActions = {
     setSignedUser: (data: IUserData) => ({type: 'SET_SIGN_IN', data} as const),
-    loginUser: (id: IdType, token: null) => ({type: 'LOGIN_USER', id, token} as const),
+    setAuthUser: (isAuth:boolean) => ({type: 'SET_AUTH_USER', isAuth} as const),
     setIsLoading: (isLoading: boolean) => ({type: 'SET_IS_LOADING', isLoading} as const)
 }
 
@@ -64,8 +65,31 @@ export const loginUser = (data: ILoginUserData) => {
     return async (dispatch: Dispatch<commonActionsSignInPage>, getState: () => AppStateType) => {
         try {
             let res = await authAPI.loginUser(data)
-            dispatch(signInActions.loginUser(res.data.id, res.data.token));
+            dispatch(signInActions.setAuthUser(true));
             authAPI.saveToken(res.data.id, res.data.token)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+export const setAuthUser = () => {
+    return async (dispatch: Dispatch<commonActionsSignInPage>) => {
+        try {
+           let authData = localStorage.getItem('userData')
+            authData && dispatch(signInActions.setAuthUser(true));
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+
+export const logoutUser = () => {
+    return async (dispatch: Dispatch<commonActionsSignInPage>, getState: () => AppStateType) => {
+        try {
+            await authAPI.removeToken()
+            dispatch(signInActions.setAuthUser(false));
         } catch (e) {
             console.log(e)
         }

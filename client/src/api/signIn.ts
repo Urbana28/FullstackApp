@@ -17,5 +17,8 @@ export const authAPI = {
     },
     saveToken (userId: IdType, token: null ) {
         return localStorage.setItem(storageName, JSON.stringify({userId, token}))
+    },
+    removeToken() {
+        return localStorage.removeItem(storageName)
     }
 }

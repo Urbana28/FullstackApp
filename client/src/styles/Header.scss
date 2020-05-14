@@ -10,8 +10,8 @@
       max-width: 60px;
     }
   }
-  &__signIn {
-    margin: 20px 30px;
+  &__menu {
+    margin: 20px 44px;
 
     &__link {
       color: snow;
@@ -20,7 +20,7 @@
       font-size: 20px;
     }
   }
-  &__groups {
+  &__timetable {
     margin: 20px 30px;
 
     &__link {
@@ -31,9 +31,6 @@
     }
   }
 }
-.selected {
-  color: #FFDC00;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 20px;
-}
+
+
+

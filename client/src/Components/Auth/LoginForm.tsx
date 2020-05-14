@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import '../../styles/SignInForm.scss'
 import {FormHelperText} from "@material-ui/core";
 import {ILoginUserData} from "../../types/SignInTypes";
+import {NavLink} from "react-router-dom";
 
 
 interface IProps {
@@ -18,6 +19,7 @@ const LoginForm:React.FC<IProps> = ({login}) => {
     }
     return (
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
+            <div className='form__title'><h1>Войдите в систему</h1></div>
             <div className='form__input'>
                 <TextField
                     name='email'
@@ -42,6 +44,7 @@ const LoginForm:React.FC<IProps> = ({login}) => {
             </div>
 
             <Button color='primary' className='form__button' type='submit'>Login</Button>
+            <div className='form__link'><NavLink to='/signIn'>Don't have an account?</NavLink></div>
         </form>
     )
 }

@@ -2,7 +2,9 @@ import React from 'react';
 
 const TimetablePage = () => {
     return (
-        <div></div>
+        <div>
+           <h1> Raspisanie </h1>
+        </div>
     )
 }
 
