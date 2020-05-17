@@ -18,25 +18,25 @@ router.post('/patient',
     ],
     async (req, res) => {
         try {
-            console.log('Body', req.body)
             const errors = validationResult(req)
             if(!errors.isEmpty()) {
                 return res.status(400).json({
                     errors: errors.array(),
-                    message: 'Incorrect patient data'
+                    message: 'Введены некорректные данные'
                 })
             }
-            const {name,surname, patronymic, birthDate, gender, phoneNumber} = req.body
-            const candidate = await Patient.findOne({name})
-            if(candidate) {
-                res.status(400).json({message: 'This patient already exists'})
+            const {surname, name, patronymic, birthDate, gender, phoneNumber} = req.body
+            const candidate = await Patient.find({name, surname, patronymic, birthDate})
+            if(candidate.length !== 0) {
+                return res.status(400).json({message: 'Пациент уже существует'})
             }
-            const patient = new Patient({name,surname, patronymic, birthDate, gender, phoneNumber})
+            const patient =  new Patient(req.body)
+            console.log(patient)
             await patient.save()
-            res.status(201).json({message: 'Patient has been created', patient})
+            return res.status(201).json({message: 'Пациент создан', patient})
         } catch (e) {
             console.log(e)
-            res.status(500).json({message: 'Something has went wrong, try again!'})
+           return res.status(500).json({message: 'Что-то пошло не так, попробуйте снова!'})
         }
     }
 )

@@ -14,12 +14,12 @@ const useRoute = (isAuth: boolean) => {
     if (isAuth) {
         return (
             <Switch>
-                <Route exact component={TimetablePage} path='/'/>
+                <Route exact component={TimetablePage} path='/timetable'/>
                 <Route component={Groups} path='/groups'/>
                 <Route component={PatientContainer} path='/patientPage/:patientId?'/>
                 <Route component={NewPatientForm} path='/patientForm'/>
                 <Route component={PatientsBase} path='/patients'/>
-                <Redirect to='/'/>
+                <Redirect to='/timetable'/>
             </Switch>
 
         )

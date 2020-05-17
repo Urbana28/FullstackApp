@@ -12,6 +12,7 @@ import {blue} from '@material-ui/core/colors';
 import {NavLink} from "react-router-dom";
 import {logoutUser} from "../../store/signInReducer";
 import {useDispatch} from "react-redux";
+import '../../styles/Header.scss'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -81,9 +82,9 @@ const MenuComponent = () => {
                             <Paper>
                                 <ClickAwayListener onClickAway={handleClose}>
                                     <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                        <MenuItem onClick={handleClose}>Расписание</MenuItem>
-                                        <MenuItem onClick={handleClose}><NavLink to='/patients'>База пациентов</NavLink></MenuItem>
-                                        <MenuItem onClick={handleClose}>Добавить пациента</MenuItem>
+                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/timetable'>Расписание</NavLink></div></MenuItem>
+                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patients'>База пациентов</NavLink></div></MenuItem>
+                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patientForm'>Добавить пациента</NavLink></div></MenuItem>
                                         <MenuItem onClick={logout}>Logout</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>

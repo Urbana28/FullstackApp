@@ -1,6 +1,5 @@
 import {IdType, ILoginUserData, IUserData} from "../types/SignInTypes";
 import {Dispatch} from "redux";
-import {AppStateType} from "./store";
 import {authAPI} from "../api/signIn";
 
 

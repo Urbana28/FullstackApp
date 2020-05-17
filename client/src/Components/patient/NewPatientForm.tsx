@@ -8,12 +8,14 @@ import {useDispatch} from "react-redux";
 import {addNewPatient} from "../../store/patientReducer";
 import {IPatient} from "../../types/patientTypes";
 
+
 const NewPatientForm = () => {
     const {errors, register, handleSubmit} = useForm<IPatient>()
     const dispatch = useDispatch()
     const onSubmit = (values:IPatient) => {
         dispatch(addNewPatient(values))
     }
+
     return(
         <form className='form' onSubmit={handleSubmit(onSubmit)} action="">
             <div className='form__title'><h1>Создайте пациента</h1></div>
