@@ -1,6 +1,6 @@
 
 export interface IPatient{
-    _id?: string,
+    _id: string,
     surname: string,
     name: string,
     patronymic: string,

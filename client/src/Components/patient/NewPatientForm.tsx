@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useForm} from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 import {FormHelperText} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import '../../styles/PatientPage.scss'
 import {useDispatch} from "react-redux";
-import {addNewPatient} from "../../store/patientReducer";
+import {addNewPatient, patientActions} from "../../store/patientReducer";
 import {IPatient} from "../../types/patientTypes";
 
 
@@ -15,6 +15,9 @@ const NewPatientForm = () => {
     const onSubmit = (values:IPatient) => {
         dispatch(addNewPatient(values))
     }
+    useEffect(() => {
+        return () => {dispatch(patientActions.setAnswerMessage(''))}
+    }, [])
 
     return(
         <form className='form' onSubmit={handleSubmit(onSubmit)} action="">

@@ -2,6 +2,8 @@ import {IPatient} from "../types/patientTypes";
 import {Dispatch} from "redux";
 import {patientAPI} from "../api/patient";
 
+
+
 const initialState: InitialStateType = {
     patients: [],
     isFetching: false,
@@ -15,7 +17,7 @@ type InitialStateType = {
 }
 
 
-export const patientReducer = (state = initialState, action: commonActionsPatient) => {
+export const patientReducer = (state = initialState, action: commonActionsPatient): InitialStateType => {
     switch (action.type) {
         case "SET_ALL_PATIENTS":
             return {
@@ -27,10 +29,11 @@ export const patientReducer = (state = initialState, action: commonActionsPatien
                 ...state,
                 patients: [...state.patients, action.newPatient]
             };
-        case "SET_IS_FETCHING":
+        case "DELETE_PATIENT":
             return {
                 ...state,
-                isFetching: action.isFetching
+                patients: state.patients.filter(p => p._id != action.id)
+
             };
         case "SET_ANSWER_MESSAGE":
             return {
@@ -49,9 +52,9 @@ type commonActionsPatient = AC<typeof patientActions>
 export const patientActions = {
     setNewPatient: (newPatient: IPatient) => ({type: 'ADD_NEW_PATIENT', newPatient} as const),
     setAllPatients: (patients: Array<IPatient>) => ({type: 'SET_ALL_PATIENTS', patients} as const),
-    setIsFetching: (isFetching:boolean) => ({type: 'SET_IS_FETCHING', isFetching} as const),
-    setAnswerMessage: (message: string) => ({type: 'SET_ANSWER_MESSAGE', message} as const)
-}
+    setAnswerMessage: (message: string) => ({type: 'SET_ANSWER_MESSAGE', message} as const),
+    deletePatient: (id: string) => ({type: 'DELETE_PATIENT', id} as const) }
+
 
 
 export const addNewPatient = (patientFormData: IPatient) => {
@@ -69,10 +72,21 @@ export const addNewPatient = (patientFormData: IPatient) => {
 export const getPatients = () => {
     return async (dispatch: Dispatch<commonActionsPatient>) => {
         try {
-            dispatch(patientActions.setIsFetching(true))
             let patients = await patientAPI.getAllPatients()
             dispatch(patientActions.setAllPatients(patients))
-            dispatch(patientActions.setIsFetching(false))
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
+
+
+export const deletePatientFromBase = (id: string) => {
+    return async (dispatch: Dispatch<commonActionsPatient>) => {
+        try {
+            const res = await patientAPI.deletePatient(id)
+            dispatch(patientActions.deletePatient(id))
+            dispatch(patientActions.setAnswerMessage((res.data.message)))
         } catch (e) {
             console.log(e)
         }

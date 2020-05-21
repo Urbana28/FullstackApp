@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../store/store";
-import {getPatients} from "../../store/patientReducer";
+import {deletePatientFromBase, getPatients} from "../../store/patientReducer";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +11,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import {IconButton} from "@material-ui/core";
+import '../../App.scss'
+import {NavLink} from "react-router-dom";
+
+
 
 
 
@@ -19,6 +25,10 @@ const PatientsBase = () => {
     const dispatch = useDispatch()
     useEffect (() => {
         dispatch(getPatients())
+    }, [dispatch])
+
+    const deletePatient = useCallback((id:string) => {
+        dispatch(deletePatientFromBase(id))
     }, [dispatch])
 
 
@@ -39,8 +49,7 @@ const PatientsBase = () => {
 
 
     return (
-        <div>
-            {/*<div>{isFetching && <Preloader />}</div>*/}
+        <div className='table'>
             <TableContainer component={Paper}>
                 <Table className={classes.table} size="medium" aria-label="a dense table">
                     <TableHead className={classes.head}>
@@ -52,11 +61,12 @@ const PatientsBase = () => {
                             <TableCell align="center">Дата рождения</TableCell>
                             <TableCell align="center">Телефон</TableCell>
                             <TableCell align="right">Подробнее</TableCell>
+                            <TableCell align="right">Удалить</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {patients.map((p) => (
-                            <TableRow  key={p.surname}>
+                            <TableRow  key={p._id}>
                                 <TableCell align='left' component="th" scope="row">
                                     {p.surname}
                                 </TableCell>
@@ -66,7 +76,13 @@ const PatientsBase = () => {
                                 <TableCell align="center">{p.birthDate}</TableCell>
                                 <TableCell align="center">{p.phoneNumber}</TableCell>
                                 <TableCell align="right">
-                                    <button className={classes.btn} onClick={() => console.log('hi')}><AccountCircleIcon /></button></TableCell>
+                                    <NavLink to={`/patientPage/${p._id}`}>
+                                        <IconButton className={classes.btn}><AccountCircleIcon /></IconButton>
+                                    </NavLink>
+                                </TableCell>
+                                <TableCell align="right">
+                                    <IconButton className={classes.btn} onClick={() => deletePatient(p._id)}><DeleteForeverIcon/></IconButton>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

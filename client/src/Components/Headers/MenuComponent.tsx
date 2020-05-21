@@ -12,7 +12,7 @@ import {blue} from '@material-ui/core/colors';
 import {NavLink} from "react-router-dom";
 import {logoutUser} from "../../store/signInReducer";
 import {useDispatch} from "react-redux";
-import '../../styles/Header.scss'
+import '../../App.scss'
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -73,25 +73,27 @@ const MenuComponent = () => {
                 >
                    <DehazeIcon fontSize='large' style={{color:blue[500]}} />
                 </Button>
-                <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
-                    {({ TransitionProps, placement }) => (
-                        <Grow
-                            {...TransitionProps}
-                            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                        >
-                            <Paper>
-                                <ClickAwayListener onClickAway={handleClose}>
-                                    <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/timetable'>Расписание</NavLink></div></MenuItem>
-                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patients'>База пациентов</NavLink></div></MenuItem>
-                                        <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patientForm'>Добавить пациента</NavLink></div></MenuItem>
-                                        <MenuItem onClick={logout}>Logout</MenuItem>
-                                    </MenuList>
-                                </ClickAwayListener>
-                            </Paper>
-                        </Grow>
-                    )}
-                </Popper>
+               <div className='popper'>
+                   <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+                       {({ TransitionProps, placement }) => (
+                           <Grow
+                               {...TransitionProps}
+                               style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                           >
+                               <Paper>
+                                   <ClickAwayListener onClickAway={handleClose}>
+                                       <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                                           <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/timetable'>Расписание</NavLink></div></MenuItem>
+                                           <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patients'>База пациентов</NavLink></div></MenuItem>
+                                           <MenuItem onClick={handleClose}><div className='nav'><NavLink to='/patientForm'>Добавить пациента</NavLink></div></MenuItem>
+                                           <MenuItem onClick={logout}>Logout</MenuItem>
+                                       </MenuList>
+                                   </ClickAwayListener>
+                               </Paper>
+                           </Grow>
+                       )}
+                   </Popper>
+               </div>
         </div>
     );
 }

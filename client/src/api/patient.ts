@@ -13,7 +13,7 @@ export const patientAPI = {
     getAllPatients() {
          return instance.get<{message: string, patients:Array<IPatient>}>('/patients').then(res => res.data.patients)
     },
-    getPatientPage() {
-         return instance.get('patient/:id')
+    deletePatient(id: string) {
+         return instance.delete(`patient/${id}`)
     }
 }

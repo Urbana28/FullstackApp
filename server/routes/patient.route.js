@@ -41,21 +41,33 @@ router.post('/patient',
     }
 )
 
-//api/client/patient by id
-
-router.get('/patient/:id',  async (req, res) => {
+//api/client/patient delete
+router.delete(`/patient/:id`,
+    async(req, res) => {
     try {
-        const id = req.params.id
-        const requiredPatient = await Patient.findById(id);
-        if(!requiredPatient) {
-            res.status(400).json({message: "Patient doesn't exist"})
-        }
-        res.status(200).json({message: 'Patient info', requiredPatient})
-    } catch (e) {
-        res.status(500).json({message: 'Something has went wrong, try again!'})
+        Patient.findByIdAndRemove(req.params.id, (err) => {
+            return err ? res.status(500).json({message: 'Не удалось удалить пациента, попробуйте снова!'}) :
+                res.status(200).json({success: true, message: 'Пациент был удален'})
+
+        })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).json({message: 'Не удалось удалить пациента, попробуйте снова!'})
     }
-}
-    )
+    })
+
+//api/client/patient edit
+/*router.put('/patient/:id',
+    [],
+    async(res, req) => {
+    try {
+
+    } catch (e) {
+
+    }
+    })*/
+
+
 
 //api/client/all patients
 
@@ -64,11 +76,11 @@ router.get('/patients',
     try {
         const patients = await Patient.find()
         if(patients === null) {
-            res.status(400).json({message: 'Database is empty'})
+           return res.status(400).json({message: 'Database is empty'})
         }
-        res.status(200).json({message: 'All patients', patients})
+        return res.status(200).json({message: 'All patients', patients})
     } catch (e) {
-        res.status(500).json({message: 'Something has went wrong, try again!'})
+        return res.status(500).json({message: 'Something has went wrong, try again!'})
     }
     }
     )

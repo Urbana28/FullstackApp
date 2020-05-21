@@ -15,7 +15,7 @@ function App() {
     useEffect (() => {
         dispatch(setAuthUser())
     }, [dispatch])
-    const message = useSelector((state:AppStateType) => state.patientPage.message)
+    const message = useSelector((state: AppStateType) => state.patientPage.message)
 
 
   return (
