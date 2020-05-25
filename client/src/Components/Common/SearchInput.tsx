@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import InputBase from "@material-ui/core/InputBase";
 import {createStyles, Theme, makeStyles, fade} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
+import {useDispatch} from "react-redux";
+import {patientActions} from "../../store/patientReducer";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -53,6 +55,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const SearchInput = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const searchPatient = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
+        dispatch(patientActions.setSortedPatients(value))
+    }
+
     return (
         <div>
             <div className={classes.search}>
@@ -66,6 +73,7 @@ const SearchInput = () => {
                         input: classes.inputInput,
                     }}
                     inputProps={{ 'aria-label': 'search' }}
+                    onChange={searchPatient}
                 />
             </div>
         </div>

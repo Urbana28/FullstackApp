@@ -10,10 +10,16 @@ export const patientAPI = {
      addPatient(patientFormData: IPatient) {
          return instance.post('/patient', patientFormData)
      },
-    getAllPatients() {
-         return instance.get<{message: string, patients:Array<IPatient>}>('/patients').then(res => res.data.patients)
+    getAllPatients(page:number, limit: number) {
+         return instance.get<GetPatients>(`/patients?page=${page}&limit=${limit}`)
     },
     deletePatient(id: string) {
          return instance.delete(`patient/${id}`)
     }
+}
+
+type GetPatients = {
+    message: string,
+    results: Array<IPatient>,
+    totalCount: number
 }

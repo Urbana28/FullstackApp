@@ -15,21 +15,29 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import {IconButton} from "@material-ui/core";
 import '../../App.scss'
 import {NavLink} from "react-router-dom";
-
+import Paginator from "../Common/Paginator";
+import loading from '../../img/ajax-loading-2.gif'
 
 
 
 
 const PatientsBase = () => {
     const patients = useSelector((state:AppStateType) => state.patientPage.patients)
+    const searchedPatients = useSelector((state:AppStateType) => state.patientPage.sortedPatients)
+    const totalCount = useSelector ((state: AppStateType) => state.patientPage.totalCount)
+    const limit = useSelector((state:AppStateType) => state.patientPage.limit)
+    const page = useSelector((state:AppStateType) => state.patientPage.page)
+    const isFetching = useSelector((state: AppStateType) => state.patientPage.isFetching)
     const dispatch = useDispatch()
     useEffect (() => {
-        dispatch(getPatients())
-    }, [dispatch])
+        dispatch(getPatients( page, limit))
+    }, [dispatch, page, limit])
 
     const deletePatient = useCallback((id:string) => {
         dispatch(deletePatientFromBase(id))
     }, [dispatch])
+
+    const patientsForMap = searchedPatients.length > 0 ? searchedPatients : patients
 
 
     const useStyles = makeStyles({
@@ -50,8 +58,9 @@ const PatientsBase = () => {
 
     return (
         <div className='table'>
+            {isFetching && <div className='preloader'><img src={loading} alt=""/></div>}
             <TableContainer component={Paper}>
-                <Table className={classes.table} size="medium" aria-label="a dense table">
+                <Table className={classes.table} size="small" aria-label="a dense table">
                     <TableHead className={classes.head}>
                         <TableRow>
                             <TableCell align='left'>Фамилия</TableCell>
@@ -65,8 +74,8 @@ const PatientsBase = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {patients.map((p) => (
-                            <TableRow  key={p._id}>
+                        {patientsForMap.map((p) => (
+                            <TableRow key={p._id}>
                                 <TableCell align='left' component="th" scope="row">
                                     {p.surname}
                                 </TableCell>
@@ -89,6 +98,9 @@ const PatientsBase = () => {
                 </Table>
             </TableContainer>
 
+           <div className='paginator'>
+               <Paginator totalCount={totalCount} limit={limit} />
+           </div>
         </div>
     );
 }
